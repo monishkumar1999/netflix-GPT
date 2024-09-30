@@ -1,10 +1,11 @@
+import { Body } from "./Component/Body";
 
-import './App.css';
+
 
 function App() {
   return (
     <div >
-   Vanakkam 
+<Body></Body>
     </div>
   );
 }
