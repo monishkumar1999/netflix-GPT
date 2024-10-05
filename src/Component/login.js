@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Header } from "./Header";
 import { checkValidate } from "./Utils/checkValidate";
-
+import {  createUserWithEmailAndPassword } from "firebase/auth"; 
+import { auth } from "./firebase";
 const Login = () => {
   const [isSignin, setSignin] = useState(true);
 
@@ -18,6 +19,30 @@ const Login = () => {
 
    const thevalidateResult=checkValidate(email.current.value,password.current.value)
    setValiderror(thevalidateResult)
+
+   if(validerror){
+    return
+   }
+
+  //  sign in signup logic
+
+  if(!isSignin){
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed up 
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
+  }
+  else{
+    console.log("sign in ")
+  }
+
   }
 
  
