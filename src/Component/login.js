@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Header } from "./Header";
 import { checkValidate } from "./Utils/checkValidate";
-import {  createUserWithEmailAndPassword } from "firebase/auth"; 
+import {  createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"; 
 import { auth } from "./firebase";
 const Login = () => {
   const [isSignin, setSignin] = useState(true);
@@ -27,20 +27,34 @@ const Login = () => {
   //  sign in signup logic
 
   if(!isSignin){
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
     .then((userCredential) => {
       // Signed up 
       const user = userCredential.user;
-      // ...
+    console.log(user);
+    setValiderror("Successfully created ");
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
+       setValiderror(errorMessage);
     });
   }
   else{
-    console.log("sign in ")
+  
+    signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+  .then((userCredential) => {
+   
+    const user = userCredential.user;
+    setValiderror("logged successfully");
+
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setValiderror(errorMessage);
+  });
+    
   }
 
   }
