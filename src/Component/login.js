@@ -1,9 +1,14 @@
 import React, { useRef, useState } from "react";
 import { Header } from "./Header";
 import { checkValidate } from "./Utils/checkValidate";
-import {  createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"; 
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "./firebase";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
   const [isSignin, setSignin] = useState(true);
 
   const [validerror, setValiderror] = useState(null);
@@ -14,52 +19,56 @@ const Login = () => {
 
   const email = useRef(null);
   const password = useRef(null);
- 
+
   function hasFormSubmit() {
+    const thevalidateResult = checkValidate(
+      email.current.value,
+      password.current.value
+    );
+    setValiderror(thevalidateResult);
 
-   const thevalidateResult=checkValidate(email.current.value,password.current.value)
-   setValiderror(thevalidateResult)
+    if (validerror) {
+      return;
+    }
 
-   if(validerror){
-    return
-   }
+    //  sign in signup logic
 
-  //  sign in signup logic
-
-  if(!isSignin){
-    createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
-    .then((userCredential) => {
-      // Signed up 
-      const user = userCredential.user;
-    console.log(user);
-    setValiderror("Successfully created ");
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-       setValiderror(errorMessage);
-    });
+    if (!isSignin) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+          setValiderror("Successfully created ");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setValiderror(errorMessage);
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          setValiderror("logged successfully");
+          navigate("/browser");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setValiderror(errorMessage);
+        });
+    }
   }
-  else{
-  
-    signInWithEmailAndPassword(auth, email.current.value, password.current.value)
-  .then((userCredential) => {
-   
-    const user = userCredential.user;
-    setValiderror("logged successfully");
 
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    setValiderror(errorMessage);
-  });
-    
-  }
-
-  }
-
- 
   return (
     <div>
       <Header />
@@ -73,7 +82,6 @@ const Login = () => {
             {isSignin ? "signin" : "signup"}
           </h1>
 
-         
           {!isSignin && (
             <input
               className="p-3 w-60 m-4 rounded bg-gray-700 border  border-b-gray-50"
@@ -93,7 +101,7 @@ const Login = () => {
             type="password"
             placeholder="Please Enter The Password"
           />
-           <p className="text-red-600 p-3 font-bold ">{validerror}</p>
+          <p className="text-red-600 p-3 font-bold ">{validerror}</p>
           <button
             className="bg-red-600 text-white px-4 py-2 rounded mt-4 w-60"
             onClick={() => {
