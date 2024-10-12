@@ -8,7 +8,7 @@ const Videotilte = ({ original_title, overview }) => {
       <p className="text-lg pt-4 w-1/4 text-white">{overview}</p>
 
       <div className="flex gap-2 mt-3">
-        <button className="bg-white m-1 p-3 text-black px-10 text-lg  rounded-lg">  Play</button>
+        <button className="bg-white m-1 p-3 text-black px-10 text-lg  rounded-lg"> Play</button>
         <button className="bg-slate-600 m-1 p-3 text-white px-10 text-lg rounded-lg bg-opacity-50">More info</button>
       </div>
     </div>

@@ -8,7 +8,7 @@ const Maincontainer = () => {
 
   if (!movies) return;
 
-  const mainMovie = movies[0];
+  const mainMovie = movies[Math.floor(Math.random() * 20)];
 
   const { original_title, overview, id } = mainMovie;
   // console.log(mainMovie)
