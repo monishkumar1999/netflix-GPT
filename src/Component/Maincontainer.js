@@ -2,6 +2,7 @@ import React from "react";
 import Videotilte from "./Videotilte";
 import { useSelector } from "react-redux";
 import VideoBAckground from "./VideoBAckground";
+import SecondaryContainer from "./SecondaryContainer";
 
 const Maincontainer = () => {
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
@@ -16,6 +17,7 @@ const Maincontainer = () => {
     <div>
       <Videotilte original_title={original_title} overview={overview} />
       <VideoBAckground movieId={id} />
+     <SecondaryContainer/>
     </div>
   );
 };
