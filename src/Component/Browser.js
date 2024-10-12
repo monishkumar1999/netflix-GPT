@@ -1,14 +1,23 @@
 
-import React from 'react'
-import Header from './Header'
+import { useSelector } from "react-redux";
+import Header from "./Header";
+import useFetchNowplayingMoive from "./hooks/useFetchmovie";
+import Maincontainer from "./Maincontainer";
+
 
 
 function Browser() {
+
+
+  useFetchNowplayingMoive()
+ 
+  // console.log(movies)  
   return (
     <div>
-<Header></Header>
+      <Header />
+      <Maincontainer />
     </div>
-  )
+  );
 }
 
-export default Browser
+export default Browser;

@@ -11,20 +11,7 @@ import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "./Utils/Slice";
 
 export const Body = () => {
-  const dispatch = useDispatch();
   
-  useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { uid, displayName, email } = user;
-        dispatch(addUser(email));
-      } else {
-        dispatch(removeUser);
-        console.log("not login");
-      }
-    });
-  }, []);
 
   const appRoute = createBrowserRouter([
     {

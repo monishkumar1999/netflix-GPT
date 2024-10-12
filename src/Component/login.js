@@ -59,7 +59,7 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           setValiderror("logged successfully");
-          navigate("/browser");
+         
         })
         .catch((error) => {
           const errorCode = error.code;
