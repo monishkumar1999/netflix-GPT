@@ -10,3 +10,8 @@ export const GET_API = {
   
   export const IMG_CDN="https://image.tmdb.org/t/p/w500/"
   
+  export const SUPPORTED_LANGUAGE=[
+    {indentifier:"en",name:"English"},
+    {indentifier:"tam",name:"Tamil"},
+    {indentifier:"span",name:"Spanish"}
+  ]

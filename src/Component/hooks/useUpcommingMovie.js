@@ -22,7 +22,7 @@ const useUpcommingMoive=()=>{
     
           const dataJson = await response.json();
     
-          console.log(dataJson);
+          // console.log(dataJson);
           // Correct the API response key
           dispatch(addUpcommingMovie(dataJson.results));
           //  console.log(dataJson);

@@ -6,6 +6,7 @@ import Maincontainer from "./Maincontainer";
 import useFetchPopularMoive from "./hooks/usePopularMovie";
 import useTopRatedMoive from "./hooks/useTopradtedMovie";
 import useUpcommingMoive from "./hooks/useUpcommingMovie";
+import GPTsearchComponent from "./GPTsearchComponent";
 
 
 
@@ -16,11 +17,17 @@ function Browser() {
   useFetchPopularMoive();
   useTopRatedMoive();
   useUpcommingMoive();
-  // console.log(movies)  
+
+const {showGptSearch}=  useSelector((store)=>store.gpt)
+  // console.log(showGptSearch)  
   return (
     <div>
       <Header />
-      <Maincontainer />
+      {
+        showGptSearch?<GPTsearchComponent/>
+        : <Maincontainer />
+    
+      }
     </div>
   );
 }
